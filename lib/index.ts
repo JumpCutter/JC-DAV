@@ -1,6 +1,6 @@
 import * as vadBindings from "./vad";
 
-export default class Vad {
+export default class VAD {
   private sampleRate: number;
   private instance: any;
 

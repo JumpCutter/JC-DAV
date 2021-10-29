@@ -1,0 +1,30 @@
+{
+  "name": "JC-VAD",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "ts:build": "tsc && cp package.json ./dist/",
+    "c:release": "node-gyp rebuild --release && yarn dylib",
+    "c:release:win": "node-gyp rebuild --release && yarn dylib:win",
+    "dylib": "if [ -f ./build/Release/vad.node ]; then mv -f ./build/Release/vad.node ./dist/vad.node; fi",
+    "dylib:win": "copy .\\build\\Release\\vad.node .\\dist\\vad.node",
+    "electron": "electron-build-env yarn c:release",
+    "electron:win": "electron-build-env yarn c:release:win",
+    "release": "rm -rf ./dist && mkdir -p ./dist && yarn electron && yarn ts:build && cp ./lib/*.d.ts ./dist",
+    "release:win": "erase /q .\\dist\\*.* && rmdir /q dist && mkdir dist && yarn electron:win && tsc && copy .\\lib\\*.d.ts .\\dist && copy package.json .\\dist\\",
+    "test": "yarn release && node dist/test.js",
+    "test:win": "yarn release:win && node .\\dist\\test.js"
+
+  },
+  "dependencies": {
+    "electron": "^9.1.1",
+    "electron-build-env": "^0.2.0",
+    "node-addon-api": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^8.2.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3",
+    "cmake-js": "^6.2.1"
+  }
+}

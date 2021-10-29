@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": [ "es2016" ],
+    "types": ["node", "mocha"],
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "target": "es2016",
+    "strict": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "baseUrl": "."
+  },
+  "include": ["lib/**/*"]
+}

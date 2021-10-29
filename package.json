@@ -2,8 +2,10 @@
   "name": "JC-VAD",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "version": "0.0.1",
   "scripts": {
     "ts:build": "tsc && cp package.json ./dist/",
+    "install": "yarn release",
     "c:release": "node-gyp rebuild --release && yarn dylib",
     "c:release:win": "node-gyp rebuild --release && yarn dylib:win",
     "dylib": "if [ -f ./build/Release/vad.node ]; then mv -f ./build/Release/vad.node ./dist/vad.node; fi",
@@ -14,7 +16,6 @@
     "release:win": "erase /q .\\dist\\*.* && rmdir /q dist && mkdir dist && yarn electron:win && tsc && copy .\\lib\\*.d.ts .\\dist && copy package.json .\\dist\\",
     "test": "yarn release && node dist/test.js",
     "test:win": "yarn release:win && node .\\dist\\test.js"
-
   },
   "dependencies": {
     "electron": "^9.1.1",

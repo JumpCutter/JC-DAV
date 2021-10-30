@@ -8,10 +8,14 @@
     "rm": "node .github/rm.js",
     "mkdir": "node .github/mkdir.js",
     "ts:build": "tsc && yarn cp package.json ./dist/",
-    "c:release": "cmake-js compile && yarn mkdir dist && yarn cp ./build/Release/vad.node /dist/",
-    "electron": "electron-build-env yarn c:release",
-    "release": "yarn rm ./dist && yarn mkdir ./dist && yarn electron && yarn ts:build && yarn cp ./lib/*.d.ts ./dist",
-    "test": "yarn release && node dist/test.js"
+    "c:debug": "cmake-js compile --debug && yarn mkdir dist && yarn cp ./build/lib/vad.node ./dist/",
+    "c:release": "cmake-js compile && yarn mkdir dist && yarn cp ./build/lib/vad.node ./dist/",
+    "electron:debug": "electron-build-env yarn c:debug",
+    "electron:release": "electron-build-env yarn c:release",
+    "release": "yarn rm ./dist && yarn mkdir ./dist && yarn electron:release && yarn ts:build && yarn cp ./lib/*.d.ts ./dist",
+    "debug": "yarn rm ./dist && yarn mkdir ./dist && yarn electron:debug && yarn ts:build && yarn cp ./lib/*.d.ts ./dist",
+    "test:debug": "yarn debug && node dist/test.js",
+    "test:release": "yarn release && node dist/test.js"
   },
   "dependencies": {
     "electron": "^9.1.1",

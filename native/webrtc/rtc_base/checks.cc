@@ -48,9 +48,9 @@ __attribute__((__format__(__printf__, 2, 3)))
 
   if (predicted_length > 0) {
     const size_t size = s->size();
-    s->resize(size + predicted_length);
+    s->resize(size + static_cast<size_t>(predicted_length));
     // Pass "+ 1" to vsnprintf to include space for the '\0'.
-    std::vsnprintf(&((*s)[size]), predicted_length + 1, fmt, args);
+    std::vsnprintf(&((*s)[size]), static_cast<size_t>(predicted_length) + 1, fmt, args);
   }
   va_end(args);
 }

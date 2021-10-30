@@ -13,7 +13,7 @@ const src = args.slice(0, -1);
 const dest = args[args.length - 1]
 
 if (!fs.existsSync(dest)) {
-    console.error(`${f} no such file or directory`)
+    console.error(`${dest} no such file or directory`)
 }
 if (!fs.statSync(dest).isDirectory()) {
     console.error(`${dest} is not a directory`);

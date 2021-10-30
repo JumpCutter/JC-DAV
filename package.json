@@ -4,17 +4,14 @@
   "types": "./dist/index.d.ts",
   "version": "0.0.1",
   "scripts": {
-    "ts:build": "tsc && cp package.json ./dist/",
-    "c:release": "node-gyp rebuild --release && yarn dylib",
-    "c:release:win": "node-gyp rebuild --release && yarn dylib:win",
-    "dylib": "if [ -f ./build/Release/vad.node ]; then mv -f ./build/Release/vad.node ./dist/vad.node; fi",
-    "dylib:win": "copy .\\build\\Release\\vad.node .\\dist\\vad.node",
+    "cp": "node .github/cp.js",
+    "rm": "node .github/rm.js",
+    "mkdir": "node .github/mkdir.js",
+    "ts:build": "tsc && yarn cp package.json ./dist/",
+    "c:release": "cmake-js compile && yarn mkdir dist && yarn cp ./build/Release/vad.node /dist/",
     "electron": "electron-build-env yarn c:release",
-    "electron:win": "electron-build-env yarn c:release:win",
-    "release": "rm -rf ./dist && mkdir -p ./dist && yarn electron && yarn ts:build && cp ./lib/*.d.ts ./dist",
-    "release:win": "erase /q .\\dist\\*.* && rmdir /q dist && mkdir dist && yarn electron:win && tsc && copy .\\lib\\*.d.ts .\\dist && copy package.json .\\dist\\",
-    "test": "yarn release && node dist/test.js",
-    "test:win": "yarn release:win && node .\\dist\\test.js"
+    "release": "yarn rm ./dist && yarn mkdir ./dist && yarn electron && yarn ts:build && yarn cp ./lib/*.d.ts ./dist",
+    "test": "yarn release && node dist/test.js"
   },
   "dependencies": {
     "electron": "^9.1.1",

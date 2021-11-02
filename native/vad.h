@@ -8,17 +8,17 @@ extern "C" {
 }
 
 class VAD : public Napi::ObjectWrap<VAD> {
- public:
-  VAD(const Napi::CallbackInfo& info);
-  ~VAD();
-  static Napi::Object Init(Napi::Env env, Napi::Object exports);
+public:
+    VAD(const Napi::CallbackInfo &info);
+    ~VAD();
+    static Napi::Object Init(Napi::Env env, Napi::Object exports);
 
- private:
-  VadInst* instance_;
-  int sample_rate_;
+private:
+    VadInst *instance_;
+    int sample_rate_;
 
-  Napi::Value Process(const Napi::CallbackInfo& info);
-  static Napi::FunctionReference constructor;
+    Napi::Value Process(const Napi::CallbackInfo &info);
+    static Napi::FunctionReference constructor;
 };
 
 #endif
